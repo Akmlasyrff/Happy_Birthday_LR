@@ -19,16 +19,50 @@
         }
 
         img {
-            max-width: 25%;
-            height: auto; 
-            margin-bottom: 20px;
-            margin-right: 10px;
-            vertical-align: middle; 
+            /* Responsive sizing */
+            max-width: min(25%, 300px); /* Won't exceed 300px even on large screens */
+            width: 100%; /* Allows flexible scaling down */
+            height: auto;
+            
+            /* Spacing */
+            margin-bottom: clamp(10px, 2vw, 20px);
+            margin-right: clamp(5px, 1vw, 10px);
+            
+            /* Layout */
+            display: inline-block; /* Better for images than flex */
+            vertical-align: middle;
+            
+            /* Styling */
+            border-radius: clamp(5px, 1vw, 10px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            
+            /* Mobile optimizations */
+            @media (max-width: 768px) {
+              max-width: 40%;
+              margin-bottom: 15px;
+            }
+            
+            @media (max-width: 480px) {
+              max-width: 60%;
+              display: block;
+              margin: 0 auto 15px auto; /* Center on small screens */
+            }
+            
+            /* High-density screens */
+            @media 
+            (-webkit-min-device-pixel-ratio: 2), 
+            (min-resolution: 192dpi) { 
+              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtler shadow on retina */
+            }
+          }
+          
+          /* Optional: Responsive images in containers */
+          .image-container {
             display: flex;
-            align-items: center;
-            border-radius: 10px; 
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-        }
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: clamp(10px, 2vw, 20px);
+          }
 
         .typing-text {
             font-size: 20px; 
@@ -90,11 +124,49 @@
     <div class="typing-text" id="typing"></div>
 
     <!-- Audio dengan autoplay dan loop -->
-    <audio controls autoplay>
-        <source src="HenryMoodie-indigo.mp3" type="audio/mpeg"> 
-        <source src="HenryMoodie-indigo.mp3" type="audio/wav"> 
-        Your browser does not support the audio element.
-    </audio>
+    <audio controls autoplay playsinline>
+        <source src="HenryMoodie-indigo.mp3" type="audio/mpeg">
+        <source src="HenryMoodie-indigo.ogg" type="audio/ogg"> <!-- Fallback format -->
+        Your browser does not support HTML5 audio.
+      </audio>
+      
+      <style>
+        audio {
+          width: 100%;
+          max-width: 400px;
+          margin: 0 auto;
+          display: hidden;
+        }
+        
+        /* Mobile-specific optimizations */
+        @media (max-width: 768px) {
+          audio {
+            /* Larger controls for touch devices */
+            min-height: 48px;
+          }
+          
+          /* Disable autoplay on mobile if needed */
+          @media (hover: none) {
+            audio[autoplay] {
+              autoplay: false;
+            }
+          }
+        }
+      </style>
+      
+      <script>
+        // Fix for iOS autoplay
+        document.addEventListener('DOMContentLoaded', function() {
+          const audio = document.querySelector('audio');
+          audio.volume = 0.5; // Start at half volume
+          
+          // Handle iOS autoplay restriction
+          document.addEventListener('click', function firstPlay() {
+            audio.play().catch(e => console.log("Autoplay prevented:", e));
+            document.removeEventListener('click', firstPlay);
+          }, { once: true });
+        });
+      </script>
 
     <div class="button" style="display: none;">
     <button class="button" onclick="location.href='index.html'">main</button>
