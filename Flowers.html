@@ -10,15 +10,15 @@
   .back-button {
     /* Positioning */
     position: fixed;
-    bottom: clamp(10px, 3vw, 20px);
-    right: clamp(10px, 3vw, 20px);
+    bottom: clamp(10px, 4vw, 5px);  /* Increased from 10px/3vw/20px */
+    right: clamp(15px, 4vw, 10px);   /* Increased from 10px/3vw/20px */
     
-    /* Sizing */
-    padding: clamp(8px, 1.5vw, 10px) clamp(12px, 2vw, 20px);
-    font-size: clamp(14px, 1.1vw, 16px);
+    /* Sizing - Increased padding and font */
+    padding: clamp(12px, 2vw, 14px) clamp(16px, 2.5vw, 24px); /* Increased from 8px/1.5vw/10px and 12px/2vw/20px */
+    font-size: clamp(16px, 1.3vw, 18px); /* Increased from 14px/1.1vw/16px */
     
     /* Styling */
-    border-radius: clamp(8px, 1.5vw, 10px);
+    border-radius: clamp(10px, 2vw, 12px); /* Slightly larger radius */
     background-color: #000;
     color: #fff;
     border: none;
@@ -30,11 +30,11 @@
     
     /* Mobile optimizations */
     @media (max-width: 768px) {
-      padding: 10px 15px;
-      font-size: 15px;
+      padding: 14px 20px; /* Increased from 10px/15px */
+      font-size: 17px;    /* Increased from 15px */
       /* Larger tap target */
-      min-width: 80px;
-      min-height: 40px;
+      min-width: 120px;   /* Increased from 100px */
+      min-height: 70px;   /* Increased from 60px */
     }
     
     @media (max-width: 480px) {
@@ -44,25 +44,26 @@
       width: 100%;
       right: 0;
       border-radius: 0;
-      padding: 12px 0;
+      padding: 16px 0;    /* Increased from 12px */
+      font-size: 18px;    /* Larger font for mobile */
     }
-  }
-  
-  .back-button:hover {
+}
+
+.back-button:hover {
     background-color: #333;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  }
-  
-  .back-button:active {
+}
+
+.back-button:active {
     transform: translateY(0);
-  }
-  
-  /* Accessibility focus state */
-  .back-button:focus {
-    outline: 2px solid #fff;
-    outline-offset: 2px;
-  }
+}
+
+/* Accessibility focus state */
+.back-button:focus {
+    outline: 3px solid #fff; /* Thicker outline */
+    outline-offset: 3px;     /* Increased offset */
+}
 </style>
 
 <body>

@@ -85,36 +85,58 @@
         }
 
         button {
-            padding: 1.3em 3em;
-            font-size: 12px;
-            text-transform:uppercase;
+            /* Relative units for responsiveness */
+            padding: clamp(1em, 1.5vw, 1.3em) clamp(2em, 3vw, 3em);
+            font-size: clamp(10px, 2.5vw, 12px);
+            
+            /* Maintained styles */
+            text-transform: uppercase;
             letter-spacing: 2.5px;
             font-weight: 500;
             color: #000;
             background-color: #fff;
             border: none;
             border-radius: 45px;
-            box-shadow: 0px 8px
-            15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s
-            ease 0s;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease 0s;
             cursor: pointer;
             outline: none;
-            gap: 30px;
             margin-top: 20px;
-        }
-
-        button:hover {
+          
+            /* Responsive gap */
+            gap: clamp(15px, 2vw, 30px);
+          
+            /* Mobile-first adjustments */
+            @media (max-width: 768px) {
+              padding: 1em 2em;
+              font-size: 11px;
+              letter-spacing: 1.5px;
+              margin-top: 15px;
+            }
+          
+            @media (max-width: 480px) {
+              padding: 0.8em 1.5em;
+              font-size: 10px;
+              letter-spacing: 1px;
+              margin-top: 10px;
+              border-radius: 35px;
+            }
+          }
+          
+          button:hover {
             background-color: #23c483;
-            box-shadow: 0px 15px 20px 
-            rgba(46, 229, 157, 0.4);
+            box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
             color: #fff;
             transform: translateY(-7px);
-        }
-
-        button:active {
+          
+            @media (max-width: 480px) {
+              transform: translateY(-4px); /* Smaller hover effect on mobile */
+            }
+          }
+          
+          button:active {
             transform: translateY(-1px);
-        }
+          }
 
     </style>
 </head>
@@ -124,35 +146,17 @@
     <div class="typing-text" id="typing"></div>
 
     <!-- Audio dengan autoplay dan loop -->
-    <audio controls autoplay playsinline>
+    <audio id="myAudio" muted>
         <source src="HenryMoodie-indigo.mp3" type="audio/mpeg">
-        <source src="HenryMoodie-indigo.ogg" type="audio/ogg"> <!-- Fallback format -->
-        Your browser does not support HTML5 audio.
-      </audio>
+    </audio>
       
-      <style>
-        audio {
-          width: 100%;
-          max-width: 400px;
-          margin: 0 auto;
-          display: hidden;
-        }
-        
-        /* Mobile-specific optimizations */
-        @media (max-width: 768px) {
-          audio {
-            /* Larger controls for touch devices */
-            min-height: 48px;
-          }
-          
-          /* Disable autoplay on mobile if needed */
-          @media (hover: none) {
-            audio[autoplay] {
-              autoplay: false;
-            }
-          }
-        }
-      </style>
+      <script>
+        document.addEventListener('click', function() {
+          var audio = document.getElementById('myAudio');
+          audio.muted = false;   // unmute
+          audio.play();          // play with sound
+        });
+      </script>
       
       <script>
         // Fix for iOS autoplay
